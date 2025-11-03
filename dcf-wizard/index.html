@@ -163,7 +163,7 @@
       </div>`}
 
     function autoGrowFCF(){const start=state.simpleFCF[0]??50;const g=8;for(let i=0;i<state.forecast.years;i++){state.simpleFCF[i]=+(start*Math.pow(1+g/100,i)).toFixed(2);}draw();}
-    function setSimple(i,v){state.simpleFCF[i]=v;draw();}
+    function setSimple(i,v){state.simpleFCF[i]=v;}
 
     function renderDetailedInputs(){if(state.mode!=='detailed') return '';
       const d=state.detailed;
@@ -260,7 +260,7 @@
     </tbody></table>`}
 
     // ---------------- Engine ----------------
-    function setYears(n){n=Math.max(1,Math.min(15,n));state.forecast.years=n;const arr=new Array(n).fill(0).map((_,i)=>state.simpleFCF[i]??0);state.simpleFCF=arr;draw();}
+    function setYears(n){n=Math.max(1,Math.min(15,n));state.forecast.years=n;const arr=new Array(n).fill(0).map((_,i)=>state.simpleFCF[i]??0);state.simpleFCF=arr;}
 
     function buildSeries(s=state){
       const n=s.forecast.years;const series=[];
