@@ -109,7 +109,16 @@
 
     function drawSidebar(){const steps=getSteps();const sb=document.getElementById('sidebar');sb.innerHTML=steps.map((s,i)=>`<div class='step ${i===current?'active':''}' data-idx='${i}'><div class='num'>${i+1}</div><div>${s.title}</div></div>`).join('');sb.querySelectorAll('.step').forEach(el=>el.onclick=()=>{current=+el.dataset.idx;draw();});}
 
-    function onInput(p,v){const a=p.split('.');let o=state;for(let i=0;i<a.length-1;i++)o=o[a[i]];o[a[a.length-1]]=v;draw();}
+    function onInput(p,v){
+      const a=p.split('.');
+      let o=state;
+      for(let i=0;i<a.length-1;i++)o=o[a[i]];
+      o[a[a.length-1]]=v;
+      
+      // Only redraw in certain steps (e.g., review or analysis)
+      const currentKey = getSteps()[current]?.key;
+      if (currentKey === 'review' || currentKey === 'analysis') draw();
+    }
 
     // ---------------- Renders ----------------
     function renderCompany(){return`
